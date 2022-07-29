@@ -19,9 +19,12 @@ body {
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   box-shadow: 5px 5px 5px lightgray;
+  gap: 1px;
 }
 
 .section {
   background-color: brown;
-  border: 1px solid white;
+  color: white;
+  font-size: 100px;
+  text-align: center;
 }
