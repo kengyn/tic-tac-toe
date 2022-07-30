@@ -20,7 +20,7 @@ const gameBoard = (() => {
     }
   };
 
-  return { board, addToBoard };
+  return { board, addToBoard, addToPage };
 })();
 
 //player factory function
@@ -38,6 +38,8 @@ const Player = (section, name) => {
 const game = (() => {
   const gameboardSection = document.querySelectorAll(".section");
   const playerNotif = document.querySelector(".playerTurn");
+  const restartButton = document.querySelector(".restart");
+
   let currentPlayer = 1;
   let currentName = "ඞ";
   let turn = 0;
@@ -86,6 +88,7 @@ const game = (() => {
         playerNotif.textContent = `Winner ඞ`;
         currentName = "";
         turn = 10;
+        restartButton.style.display = "block";
       } else if (
         gameBoard.board[axe[0]] === "🔪" &&
         gameBoard.board[axe[1]] === "🔪" &&
@@ -94,10 +97,26 @@ const game = (() => {
         playerNotif.textContent = `Winner 🔪`;
         currentName = "";
         turn = 10;
+        restartButton.style.display = "block";
       } else if (turn == 9) {
         playerNotif.textContent = "draw";
         currentName = "";
+        restartButton.style.display = "block";
       }
     }
   }
+
+  restartButton.addEventListener("click", () => {
+    gameBoard.board.splice(0, 9, "", "", "", "", "", "", "", "", "");
+
+    for (const section of gameboardSection) {
+      section.textContent = "";
+    }
+
+    playerNotif.textContent = "Player 1 turn";
+    currentPlayer = 1;
+    currentName = "ඞ";
+    turn = 0;
+    restartButton.style.display = "none";
+  });
 })();
