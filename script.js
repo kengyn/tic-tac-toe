@@ -22,17 +22,9 @@ const gameBoard = (() => {
 })();
 
 const Player = (section, name) => {
-  // const gameboardSection = document.querySelectorAll(".section");
-
   const playGame = () => {
-    // for (const section of gameboardSection) {
-    //   section.addEventListener("click", () => {
-    // if (section.textContent == "") {
     gameBoard.addToBoard(section, name);
     name = "";
-    // }
-    // });
-    // }
   };
 
   return { playGame };
@@ -40,6 +32,7 @@ const Player = (section, name) => {
 
 const gameLogic = (() => {
   const gameboardSection = document.querySelectorAll(".section");
+  const playerNotif = document.querySelector(".playerTurn");
   let currentPlayer = 1;
   let currentName = "ඞ";
 
@@ -50,12 +43,12 @@ const gameLogic = (() => {
         if (currentPlayer == 1) {
           currentPlayer = 0;
           currentName = "🔪";
-          // console.log(gameBoard.board);
+          playerNotif.textContent = "Player 2 turn";
           checkGame();
-        } else {
+        } else if (currentPlayer == 0) {
           currentPlayer = 1;
           currentName = "ඞ";
-          // console.log(gameBoard.board);
+          playerNotif.textContent = "Player 1 turn";
           checkGame();
         }
       }
@@ -63,68 +56,68 @@ const gameLogic = (() => {
   }
 
   function checkGame() {
-    //vertical
     if (
+      //vertical
       (gameBoard.board[1] == "ඞ" &&
         gameBoard.board[4] == "ඞ" &&
         gameBoard.board[7] == "ඞ") ||
-      (gameBoard.board[1] == "🔪" &&
-        gameBoard.board[4] == "🔪" &&
-        gameBoard.board[7] == "🔪") ||
       (gameBoard.board[0] == "ඞ" &&
         gameBoard.board[3] == "ඞ" &&
         gameBoard.board[6] == "ඞ") ||
-      (gameBoard.board[0] == "🔪" &&
-        gameBoard.board[3] == "🔪" &&
-        gameBoard.board[6] == "🔪") ||
       (gameBoard.board[2] == "ඞ" &&
         gameBoard.board[5] == "ඞ" &&
         gameBoard.board[8] == "ඞ") ||
-      (gameBoard.board[2] == "🔪" &&
-        gameBoard.board[5] == "🔪" &&
-        gameBoard.board[8] == "🔪")
-    ) {
-      console.log("winner");
-    }
-    //horizontal
-    if (
+      //horizontal
       (gameBoard.board[0] == "ඞ" &&
         gameBoard.board[1] == "ඞ" &&
         gameBoard.board[2] == "ඞ") ||
-      (gameBoard.board[0] == "🔪" &&
-        gameBoard.board[1] == "🔪" &&
-        gameBoard.board[2] == "🔪") ||
       (gameBoard.board[3] == "ඞ" &&
         gameBoard.board[4] == "ඞ" &&
         gameBoard.board[5] == "ඞ") ||
-      (gameBoard.board[3] == "🔪" &&
-        gameBoard.board[4] == "🔪" &&
-        gameBoard.board[5] == "🔪") ||
       (gameBoard.board[6] == "ඞ" &&
         gameBoard.board[7] == "ඞ" &&
         gameBoard.board[8] == "ඞ") ||
-      (gameBoard.board[6] == "🔪" &&
-        gameBoard.board[7] == "🔪" &&
-        gameBoard.board[8] == "🔪")
-    ) {
-      console.log("winner");
-    }
-    //diagonal
-    if (
+      //diagonal
       (gameBoard.board[0] == "ඞ" &&
         gameBoard.board[4] == "ඞ" &&
         gameBoard.board[8] == "ඞ") ||
+      (gameBoard.board[2] == "ඞ" &&
+        gameBoard.board[4] == "ඞ" &&
+        gameBoard.board[6] == "ඞ")
+    ) {
+      playerNotif.textContent = "Winner ඞ";
+      currentName = "";
+    } else if (
+      //vertical
+      (gameBoard.board[1] == "🔪" &&
+        gameBoard.board[4] == "🔪" &&
+        gameBoard.board[7] == "🔪") ||
+      (gameBoard.board[0] == "🔪" &&
+        gameBoard.board[3] == "🔪" &&
+        gameBoard.board[6] == "🔪") ||
+      (gameBoard.board[2] == "🔪" &&
+        gameBoard.board[5] == "🔪" &&
+        gameBoard.board[8] == "🔪") ||
+      //horizontal
+      (gameBoard.board[0] == "🔪" &&
+        gameBoard.board[1] == "🔪" &&
+        gameBoard.board[2] == "🔪") ||
+      (gameBoard.board[3] == "🔪" &&
+        gameBoard.board[4] == "🔪" &&
+        gameBoard.board[5] == "🔪") ||
+      (gameBoard.board[6] == "🔪" &&
+        gameBoard.board[7] == "🔪" &&
+        gameBoard.board[8] == "🔪") ||
+      //diagonal
       (gameBoard.board[0] == "🔪" &&
         gameBoard.board[4] == "🔪" &&
         gameBoard.board[8] == "🔪") ||
-      (gameBoard.board[2] == "ඞ" &&
-        gameBoard.board[4] == "ඞ" &&
-        gameBoard.board[6] == "ඞ") ||
       (gameBoard.board[2] == "🔪" &&
         gameBoard.board[4] == "🔪" &&
         gameBoard.board[6] == "🔪")
     ) {
-      console.log("winner");
+      playerNotif.textContent = "Winner 🔪";
+      currentName = "";
     }
   }
 })();
